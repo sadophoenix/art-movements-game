@@ -7,8 +7,8 @@ import Piece from './Piece';
 const Cell = (props) => {
     const { image, size, level, position, connectDropTarget, isOver } = props;
     const side = (size / level);
-    const x = (position % level) * side;
-    const y = Math.floor(position / level) * side;
+    const x = (position % (2 * level)) * side;
+    const y = Math.floor(position / (2 * level)) * side;
 
     return connectDropTarget(
         <div className='piece'>

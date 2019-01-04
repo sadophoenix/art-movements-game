@@ -15,7 +15,7 @@ const Piece = (props) => {
         border: '1px solid black',
         backgroundImage: `url(${image})`,
         backgroundSize: `${size}px ${size}px`,
-        backgroundPosition: `-${x}px -${y}px`,
+        backgroundPosition: `-${x % size}px -${y}px`,
         opacity: `${isOver ? '0.2' : '1'}`,
         cursor: 'move',
       }}

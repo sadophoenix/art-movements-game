@@ -28,7 +28,7 @@ class Puzzle extends React.Component {
     super(props);
 
     const { level } = props;
-    const cells = level * level;
+    const cells = 2 * level * level;
 
     this.state = { positions: [...Array(cells).keys()] };
   }
@@ -72,20 +72,35 @@ class Puzzle extends React.Component {
   }
 
   renderSquares() {
-    const { image, size, level } = this.props;
+    const { image, image2, size, level } = this.props;
     const { positions } = this.state;
 
     const squares = positions.map((i) => {
-      return (
-        <Cell
-          key={i}
-          size={size}
-          image={image}
-          level={level}
-          position={i}
-          onSwap={this.onSwap.bind(this)}
-        />
-      );
+      // If the quotient of i/level is even, then use first image, else the second
+      const q = Math.floor(i / level);
+      if (q % 2 === 0) {
+        return (
+            <Cell
+                key={i}
+                size={size}
+                image={image}
+                level={level}
+                position={i}
+                onSwap={this.onSwap.bind(this)}
+            />
+        );
+      } else {
+        return (
+            <Cell
+                key={i}
+                size={size}
+                image={image2}
+                level={level}
+                position={i}
+                onSwap={this.onSwap.bind(this)}
+            />
+        );
+      }
     })
 
     return squares;
@@ -100,7 +115,7 @@ class Puzzle extends React.Component {
           display: 'flex',
           flexWrap: 'wrap',
           padding: 0,
-          width: `${size}px`,
+          width: `${2*size}px`,
           height: `${size}px`
         }}>
         {this.renderSquares()}
