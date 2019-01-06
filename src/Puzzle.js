@@ -30,7 +30,7 @@ class Puzzle extends React.Component {
         const { level } = props;
         const cells = 3 * level * level;
 
-        this.state = { positions: [...Array(cells).keys()], level: level };
+        this.state = { positions: Array.from(Array(cells).keys()), level: level };
     }
 
     componentDidMount() {
