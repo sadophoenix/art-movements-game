@@ -83,9 +83,8 @@ class Puzzle extends React.Component {
                     />
                 );
             }
-            // If the quotient of i/level is even, then use first image, else the second
-            const q = Math.floor(i / level);
-            if (q % 2 === 0) {
+            // Use first image
+            else if (i >= level * level) {
                 return (
                     <Cell
                         key={i}
@@ -96,6 +95,7 @@ class Puzzle extends React.Component {
                         onSwap={this.onSwap.bind(this)}
                     />
                 );
+            // Use second image
             } else {
                 return (
                     <Cell
@@ -109,7 +109,6 @@ class Puzzle extends React.Component {
                 );
             }
         })
-
         return squares;
     }
 
