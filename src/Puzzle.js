@@ -28,47 +28,42 @@ class Puzzle extends React.Component {
         super(props);
 
         const { level } = props;
-        const cells = 2 * level * level;
+        const cells = 3 * level * level;
 
-        this.state = { positions: [...Array(cells).keys()] };
+        this.state = { positions: [...Array(cells).keys()], level: level };
     }
 
     componentDidMount() {
-        const { positions } = this.state;
-
-        this.setState({ positions: shuffle(positions) });
+        const { level, positions } = this.state;
+        // Shuffle only the image cells
+        const shuffled = shuffle(positions.slice(0, 2 * level * level));
+        for (let i in shuffled) {
+            positions[i] = shuffled[i];
+        }
+        this.setState({ positions: positions });
     }
 
     onSwap(sourcePosition, dropPosition) {
-        const oldPositions = this.state.positions.slice();
-        const newPositions = [];
+        const positions = this.state.positions.slice();
         let done = true;
-        let p = 0;
 
-        for (let i in oldPositions) {
-            let value = oldPositions[i];
-            let newValue = value;
-
-            if (value === sourcePosition) {
-                newValue = dropPosition;
-            } else if (value === dropPosition) {
-                newValue = sourcePosition;
+        for (let i in positions) {
+            if (positions[i] === sourcePosition) {
+                positions[i] = dropPosition;
+            } else if (positions[i] === dropPosition) {
+                positions[i] = sourcePosition;
             }
 
-            newPositions.push(newValue);
-
-            if (newValue !== p) {
+            if (positions[i] !== i) {
                 done = false;
             }
-
-            p = p + 1;
         }
-
-        this.setState({ positions: newPositions });
 
         if(done) {
             this.props.onDone();
         }
+
+        this.setState({ positions: positions });
     }
 
     renderSquares() {
@@ -76,6 +71,18 @@ class Puzzle extends React.Component {
         const { positions } = this.state;
 
         const squares = positions.map((i) => {
+            // Check if this should be a blank cell
+            if (i >= 2 * level * level) {
+                return (
+                    <Cell
+                        key={i}
+                        size={size}
+                        level={level}
+                        position={i}
+                        onSwap={this.onSwap.bind(this)}
+                    />
+                );
+            }
             // If the quotient of i/level is even, then use first image, else the second
             const q = Math.floor(i / level);
             if (q % 2 === 0) {
@@ -107,18 +114,28 @@ class Puzzle extends React.Component {
     }
 
     render() {
-        const { size } = this.props;
+        const { level, size } = this.props;
 
         return (
             <div
                 style={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    padding: 0,
+                    padding: "1%",
                     width: `${2*size}px`,
+                    height: `${2*size}px`
+                }}>
+                {this.renderSquares().slice(0, 2 * level * level)}
+                <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    marginLeft: `${size/2}px`,
+                    marginTop: "10px",
+                    width: `${size}px`,
                     height: `${size}px`
                 }}>
-                {this.renderSquares()}
+                    {this.renderSquares().slice(2 * level * level)}
+                </div>
             </div>
         );
     }
