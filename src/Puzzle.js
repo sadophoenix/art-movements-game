@@ -45,24 +45,13 @@ class Puzzle extends React.Component {
 
     onSwap(sourcePosition, dropPosition) {
         const positions = this.state.positions.slice();
-        let done = true;
-
         for (let i in positions) {
             if (positions[i] === sourcePosition) {
                 positions[i] = dropPosition;
             } else if (positions[i] === dropPosition) {
                 positions[i] = sourcePosition;
             }
-
-            if (positions[i] !== i) {
-                done = false;
-            }
         }
-
-        if(done) {
-            this.props.onDone();
-        }
-
         this.setState({ positions: positions });
     }
 
@@ -112,9 +101,23 @@ class Puzzle extends React.Component {
         return squares;
     }
 
+    checkIfPuzzleComplete() {
+        const {level, positions} = this.state;
+        const result = positions.slice(2 * level * level);
+        for (let i in result) {
+            if (result[i] != i) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     render() {
         const { level, size } = this.props;
-
+        const finished = this.checkIfPuzzleComplete();
+        if (finished) {
+            this.props.onDone();
+        }
         return (
             <div
                 style={{
@@ -150,7 +153,7 @@ Puzzle.propTypes = {
 Puzzle.defaultProps = {
     size: 300,
     level: 3,
-    onDone: () => {},
+    onDone: () => { alert("Done"); },
 };
 
 export default DragDropContext(HTML5Backend)(Puzzle);
