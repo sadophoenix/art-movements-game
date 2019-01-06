@@ -1,7 +1,7 @@
 // This file is taken from <Màxim Colls> @ github.com/mllocs
 
 import React from 'react';
-import { DragSource, DropTarget } from 'react-dnd';
+import { DropTarget } from 'react-dnd';
 import Piece from './Piece';
 
 const Cell = (props) => {
@@ -23,10 +23,10 @@ const Cell = (props) => {
             />
 
             <style>{`
-        .piece:hover {
-          opacity: 0.8;
-        }
-      `}</style>
+                .piece:hover {
+                opacity: 0.8;
+                }
+            `}</style>
         </div>
     );
 };
