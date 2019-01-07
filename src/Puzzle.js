@@ -153,7 +153,7 @@ Puzzle.propTypes = {
 Puzzle.defaultProps = {
     size: 300,
     level: 3,
-    onDone: () => { alert("Done"); },
+    onDone: () => { alert("Congratulations!"); },
 };
 
 export default DragDropContext(HTML5Backend)(Puzzle);
