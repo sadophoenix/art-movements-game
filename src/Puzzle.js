@@ -72,25 +72,25 @@ class Puzzle extends React.Component {
                     />
                 );
             }
-            // Use first image
+            // Use second image
             else if (i >= level * level) {
                 return (
                     <Cell
                         key={i}
                         size={size}
-                        image={image}
+                        image={image2}
                         level={level}
                         position={i}
                         onSwap={this.onSwap.bind(this)}
                     />
                 );
-            // Use second image
+            // Use first image
             } else {
                 return (
                     <Cell
                         key={i}
                         size={size}
-                        image={image2}
+                        image={image}
                         level={level}
                         position={i}
                         onSwap={this.onSwap.bind(this)}
@@ -118,6 +118,7 @@ class Puzzle extends React.Component {
         if (finished) {
             this.props.onDone();
         }
+        const squares = this.renderSquares();
         return (
             <div
                 style={{
@@ -127,7 +128,7 @@ class Puzzle extends React.Component {
                     width: `${2*size}px`,
                     height: `${2*size}px`
                 }}>
-                {this.renderSquares().slice(0, 2 * level * level)}
+                {squares.slice(0, 2 * level * level)}
                 <div style={{
                     display: 'flex',
                     flexWrap: 'wrap',
@@ -136,7 +137,7 @@ class Puzzle extends React.Component {
                     width: `${size}px`,
                     height: `${size}px`
                 }}>
-                    {this.renderSquares().slice(2 * level * level)}
+                    {squares.slice(2 * level * level)}
                 </div>
             </div>
         );
