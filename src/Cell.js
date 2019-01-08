@@ -5,7 +5,7 @@ import { DropTarget } from 'react-dnd';
 import Piece from './Piece';
 
 const Cell = (props) => {
-    const { image, size, level, position, connectDropTarget, isOver } = props;
+    const { image, border, size, level, position, connectDropTarget, isOver } = props;
     const side = (size / level);
     const posForImage = position % (level * level);
     const x = (posForImage % level) * side;
@@ -16,6 +16,7 @@ const Cell = (props) => {
             <Piece
                 position={position}
                 image={image}
+                border={border}
                 size={size}
                 side={side}
                 x={x}
