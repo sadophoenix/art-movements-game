@@ -8,8 +8,8 @@ import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <Puzzle
-        image='https://upload.wikimedia.org/wikipedia/en/6/68/John_Coltrane_-_Blue_Train.jpg'
-        image2='http://www.juliahart.co.uk/wp-content/uploads/julia-hart-skincare-images-300x300px-07.jpg'
+        image='https://i.pinimg.com/236x/71/d0/f0/71d0f02081ef18a9b22675c2aeeb324c--georges-braque-pablo-picasso.jpg'
+        image2='https://i.pinimg.com/originals/1a/e1/b9/1ae1b99c49475dc8b1fde6eade24bb91.jpg'
     />,
     document.getElementById('root')
 );
