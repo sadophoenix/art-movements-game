@@ -159,15 +159,24 @@ class Puzzle extends React.Component {
                     display: 'flex',
                     flexWrap: 'wrap',
                     padding: "1%",
-                    width: `${2*size+40}px`,
-                    height: `${2*size}px`
+                    width: `${3*size+120}px`,
+                    height: `${size+40}px`
                 }}>
-                {squares.slice(0, 2 * level * level)}
+                <div
+                    style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        padding: "1%",
+                        width: `${2*size+40}px`,
+                        height: `${size}px`
+                    }}>
+                    {squares.slice(0, 2 * level * level)}
+                </div>
                 <div style={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    marginLeft: `${size/2}px`,
-                    marginTop: "10px",
+                    marginLeft: '10px',
+                    padding: "1%",
                     width: `${size+15}px`,
                     height: `${size}px`
                 }}>
