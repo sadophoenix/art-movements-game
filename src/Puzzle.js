@@ -1,4 +1,4 @@
-// This file is taken from <Màxim Colls> @ github.com/mllocs
+// This file is adapted from <Màxim Colls> @ github.com/mllocs
 
 import React from 'react';
 import PropTypes from 'prop-types';
