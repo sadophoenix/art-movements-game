@@ -12,7 +12,7 @@ class Tutorial extends React.Component {
 
     incrementStep() {
         let step = this.state.step + 1;
-        if (step <= 2) {
+        if (step <= 7) {
             this.setState({step: step});
         }
     }
