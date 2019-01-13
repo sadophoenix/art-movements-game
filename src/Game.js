@@ -1,5 +1,6 @@
 import React from 'react';
 import Puzzle from './Puzzle';
+import Tutorial from './Tutorial';
 import './Game.css'
 
 const images = [
@@ -8,7 +9,7 @@ const images = [
 ];
 
 class Game extends React.Component {
-    pages = {menu: "menu", puzzle: "puzzle"};
+    pages = {menu: "menu", tutorial: "tutorial", puzzle: "puzzle"};
 
     constructor(props) {
         super(props);
@@ -16,26 +17,38 @@ class Game extends React.Component {
     }
 
     mainMenu() {
-        return  <div className={"menu-div"} >
+        return  <div className={"menu-div"}>
                     <ul>
                         <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}} type="button"> start </button> </li>
-                        <li> <button type="button"> tutorial </button> </li>
+                        <li> <button onClick={() => {this.setState({ page: this.pages.tutorial })}}type="button"> tutorial </button> </li>
                     </ul>
                 </div>;
+    }
+
+    backToMenuButton() {
+        return <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Back to menu </button>
     }
 
     puzzleGame() {
         return <div>
             <Puzzle image={images[0]} image2={images[1]} />
-                <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Back to menu </button>
+            {this.backToMenuButton()}
+        </div>;
+    }
+
+    gameTutorial() {
+        return <div>
+            <Tutorial/>
+            {this.backToMenuButton()}
         </div>
     }
 
     render() {
-        const { page } = this.state;
-        switch (page) {
+        switch (this.state.page) {
             case "menu":
                 return this.mainMenu();
+            case "tutorial":
+                return this.gameTutorial();
             case "puzzle":
                 return this.puzzleGame();
         }
