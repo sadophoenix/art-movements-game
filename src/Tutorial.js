@@ -1,4 +1,5 @@
 import React from 'react';
+import "./Tutorial.css"
 
 function imagePath(step) {
     return "/resources/tutorial/"+step+".svg";
@@ -27,8 +28,10 @@ class Tutorial extends React.Component {
     render() {
         return <div>
             <img height="300px" width="600px" src={imagePath(this.state.step)}/>
-            <button type="button" onClick={this.incrementStep.bind(this)}> Next </button>
-            <button type="button" onClick={this.decrementStep.bind(this)}> Prev </button>
+            <div>
+            <button className={"buttonPrevNext previous round"} type="button" onClick={this.decrementStep.bind(this)}> &#9664; </button>
+            <button className={"next round buttonPrevNext"} type="button" onClick={this.incrementStep.bind(this)}> &#9654; </button>
+            </div>
         </div>;
     }
 }
