@@ -4,8 +4,8 @@ import Tutorial from './Tutorial';
 import './Game.css'
 
 const images = [
-    'https://i.pinimg.com/236x/71/d0/f0/71d0f02081ef18a9b22675c2aeeb324c--georges-braque-pablo-picasso.jpg',
-    'https://i.pinimg.com/originals/1a/e1/b9/1ae1b99c49475dc8b1fde6eade24bb91.jpg'
+    'http://1.bp.blogspot.com/-lallcokDt3g/UVbdwPV-YsI/AAAAAAAAGyA/8kkzX35rC1c/s1600/images.jpg',
+    'https://tse1.mm.bing.net/th?id=OIP.ptAvt00eTeZPN98EHkqSwAHaHa&pid=15.1&P=0&w=300&h=300'
 ];
 
 class Game extends React.Component {
