@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Cell from './Cell';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
+import "./Puzzle.css"
 
 /**
  * Shuffles the passed array and returns a new one
@@ -23,18 +24,28 @@ function shuffle(a) {
     return b;
 }
 
+function Statistics(props) {
+    return <div className={"statistics-div"}>
+        <p>Total moves: {props.totalMoves}</p>
+        <p>Greens: {props.greens}</p>
+        <p>Reds: {props.reds}</p>
+        <p>Yellows: {props.yellows}</p>
+    </div>
+}
+
 class Puzzle extends React.Component {
     constructor(props) {
         super(props);
 
         const { level } = props;
         const cells = 3 * level * level;
-
-        this.state = { positions: Array.from(Array(cells).keys()), level: level };
+        const statistics = { totalMoves: 0, reds: 0, yellows: 0, greens: 0, points: 100 };
+        this.state = { positions: Array.from(Array(cells).keys()), statistics: statistics };
     }
 
     componentDidMount() {
-        const { level, positions } = this.state;
+        const positions = this.state.positions;
+        const level = this.props.level;
         // Shuffle only the image cells
         const shuffled = shuffle(positions.slice(0, 2 * level * level));
         for (let i in shuffled) {
@@ -43,43 +54,71 @@ class Puzzle extends React.Component {
         this.setState({ positions: positions });
     }
 
+    updateStatistics(statistics, swappedType) {
+        statistics.totalMoves = statistics.totalMoves + 1;
+        switch (swappedType) {
+            case 'G':
+                statistics.greens = statistics.greens + 1;
+                break;
+            case 'R':
+                statistics.reds = statistics.reds + 1;
+                break;
+            case 'Y':
+                statistics.yellows = statistics.yellows + 1;
+                break;
+        }
+    }
+
     onSwap(sourcePosition, dropPosition) {
         const positions = this.state.positions.slice();
+        const statistics = this.state.statistics;
         for (let i in positions) {
             if (positions[i] === sourcePosition) {
                 positions[i] = dropPosition;
             } else if (positions[i] === dropPosition) {
                 positions[i] = sourcePosition;
+                this.updateStatistics(statistics, this.typeOfSwap(parseInt(i), sourcePosition));
             }
         }
-        this.setState({ positions: positions });
+        this.setState({ positions: positions, statistics: statistics });
     }
 
-    definePieceBorders(index, position, finished)
-    {
+    typeOfSwap(index, sourcePosition) {
+        let { level } = this.props;
+        if (index === (sourcePosition+18)) {
+            // Change the border to green
+            return 'G';
+            // If we are placing a piece from the wrong image in the result section, make it red
+        } else if (index >= 2 * level * level && sourcePosition < 2 * level * level && sourcePosition >= level * level) {
+            return 'R';
+            // If we are placing a piece from the correct image but in wrong place in the result section, make it yellow
+        } else if (index >= 2 * level * level && sourcePosition < level * level) {
+            return 'Y';
+        }
+        return 'B';
+    }
+
+    definePieceBorders(index, position, finished) {
         // If finished the puzzle we remove all borders
         if (finished) {
             return '';
         }
-
-        let { level } = this.props;
-        // The piece is in the correct place if starting from index=18,19,20... we have i=0,1,2... and so on
-        if (index === (position+18)) {
-            // Change the border to green
-            return '3px ridge green';
-            // If we are placing a piece from the wrong image in the result section, make it red
-        } else if (index >= 2 * level * level && position < 2 * level * level && position >= level * level) {
-            return '3px dotted red';
-            // If we are placing a piece from the correct image but in wrong place in the result section, make it yellow
-        } else if (index >= 2 * level * level && position < level * level) {
-            return '3px dotted yellow';
+        const swappedType = this.typeOfSwap(index, position);
+        switch (swappedType) {
+            case 'G':
+                return '3px ridge green';
+            case 'R':
+                return '3px dotted red';
+            case 'Y':
+                return '3px dotted yellow';
+            case 'B':
+                return '3px solid black';
         }
-        return '3px solid black';
     }
 
     renderSquares(finished) {
         const { image, image2, size, level } = this.props;
-        const { positions } = this.state;
+        const positions = this.state.positions.slice();
 
         let index = -1;
         const squares = positions.map((i) => {
@@ -136,8 +175,8 @@ class Puzzle extends React.Component {
     }
 
     checkIfPuzzleComplete() {
-        const {level, positions} = this.state;
-        const result = positions.slice(2 * level * level);
+        const level = this.props.level;
+        const result = this.state.positions.slice(2 * level * level);
         for (let i in result) {
             if (result[i] != i) {
                 return false;
@@ -153,6 +192,7 @@ class Puzzle extends React.Component {
             this.props.onDone();
         }
         const squares = this.renderSquares(finished);
+        const statistics = this.state.statistics;
         return (
             <div
                 style={{
@@ -160,7 +200,7 @@ class Puzzle extends React.Component {
                     flexWrap: 'wrap',
                     padding: "1%",
                     width: `${3*size+120}px`,
-                    height: `${size+40}px`
+                    height: `${size+350}px`
                 }}>
                 <div
                     style={{
@@ -181,6 +221,9 @@ class Puzzle extends React.Component {
                     height: `${size}px`
                 }}>
                     {squares.slice(2 * level * level)}
+                </div>
+                <div>
+                    {Statistics(statistics)}
                 </div>
             </div>
         );

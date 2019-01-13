@@ -8,17 +8,17 @@ const images = [
 ];
 
 class Game extends React.Component {
-    states = {menu: "menu", puzzle: "puzzle"};
+    pages = {menu: "menu", puzzle: "puzzle"};
 
     constructor(props) {
         super(props);
-        this.state = {page: this.states.menu};
+        this.state = {page: this.pages.menu};
     }
 
     mainMenu() {
         return  <div className={"menu-div"} >
                     <ul>
-                        <li> <button onClick={() => {this.setState({ page: this.states.puzzle })}} type="button"> start </button> </li>
+                        <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}} type="button"> start </button> </li>
                         <li> <button type="button"> tutorial </button> </li>
                     </ul>
                 </div>;
@@ -27,7 +27,7 @@ class Game extends React.Component {
     puzzleGame() {
         return <div>
             <Puzzle image={images[0]} image2={images[1]} />
-                <button onClick={() => {this.setState({ page: this.states.menu })}} type="button"> Back to menu </button>
+                <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Back to menu </button>
         </div>
     }
 
