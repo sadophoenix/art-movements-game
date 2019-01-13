@@ -1,13 +1,13 @@
 import React from 'react';
 
 function imagePath(step) {
-    return "/resources/tutorial/"+step+".png";
+    return "/resources/tutorial/"+step+".svg";
 }
 
 class Tutorial extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {step: 1};
+        this.state = {step: 0};
     }
 
     incrementStep() {
