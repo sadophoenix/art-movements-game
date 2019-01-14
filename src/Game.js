@@ -9,7 +9,7 @@ class Game extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { page: this.pages.menu, images: {image: "", image2: ""} };
+        this.state = { page: this.pages.menu, images: {image: "/resources/paintings/0.jpg", image2: "/resources/paintings/1.jpg"} };
     }
 
     mainMenu() {
