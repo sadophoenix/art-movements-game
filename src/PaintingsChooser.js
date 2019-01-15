@@ -5,40 +5,59 @@ function imagePath(step) {
     return "/resources/paintings/"+step+".jpg";
 }
 
-function test(imgs) {
-    alert(imgs.src);
-}
-
 class PaintingsChooser extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { image: "", image2: "" };
+        const borders = Array(props.numberOfImages).fill("");
+        this.state = { image: "", image2: "", borders: borders};
     }
 
-    addImage(path) {
+    addImage(i) {
+        const path = imagePath(i);
+        // Set first image (goal for the puzzle)
         if (this.state.image === "") {
-            this.setState({image: path});
+            const borders = this.state.borders;
+            borders[i] = '4px ridge green';
+            this.setState({image: path, borders: borders});
+            this.props.setImages({image: path, image2: this.state.image2});
+        // Unset first image
         } else if (this.state.image === path) {
-            this.setState({image: ""});
+            const borders = this.state.borders;
+            borders[i] = '';
+            this.setState({image: "", borders: borders});
+            this.props.setImages({image: '', image2: this.state.image2});
+            // Set second image (the wrong painting)
         } else if (this.state.image2 === "") {
-            this.setState({image2: path});
-            const path1 = this.state.image;
-            this.props.setImages({image: path1, image2: path});
+            const borders = this.state.borders;
+            borders[i] = '4px dotted red';
+            this.setState({image2: path, borders: borders});
+            this.props.setImages({image: this.state.image, image2: path});
+        // Unset the second image
         } else if (this.state.image2 === path) {
-            this.setState({image2: ""});
+            const borders = this.state.borders;
+            borders[i] = '';
+            this.setState({image2: "", borders: borders});
+            this.props.setImages({image: this.state.image, image2: ''});
         }
     }
 
     render() {
+        const nums = Array.from(Array(this.props.numberOfImages).keys());
+        const imgs = nums.map((i) => {
+            return <img style={{
+                border: `${this.state.borders[i]}`}}
+                src={imagePath(i)} onClick={() => { this.addImage(i)
+                }} />
+        });
         return <div className="row">
                 <div className="column">
-                    <img src={imagePath(0)} onClick={() => { this.addImage(imagePath(0)) } } />
+                    {imgs.slice(0,3)}
                 </div>
                 <div className="column">
-                    <img src={imagePath(1)} onClick={() => { this.addImage(imagePath(1)) } } />
+                    {imgs.slice(3,6)}
                 </div>
                 <div className="column">
-                    <img src={imagePath(2)} onClick={() => { this.addImage(imagePath(2)) } } />
+                    {imgs.slice(6,9)}
                 </div>
             </div>;
     }

@@ -46,7 +46,7 @@ class Game extends React.Component {
 
     paintingsChooser() {
         return <div width="1800px" height="400px">
-            <PaintingsChooser setImages={this.setImages.bind(this)}/>
+            <PaintingsChooser numberOfImages={9} setImages={this.setImages.bind(this)}/>
             {this.backToMenuButton()}
         </div>
     }
