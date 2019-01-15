@@ -9,7 +9,7 @@ class PaintingsChooser extends React.Component {
     constructor(props) {
         super(props);
         const borders = Array(props.numberOfImages).fill("");
-        this.state = { image: "", image2: "", borders: borders};
+        this.state = { image: "", image2: "", goalImageId: -1, borders: borders};
     }
 
     addImage(i) {
@@ -18,26 +18,26 @@ class PaintingsChooser extends React.Component {
         if (this.state.image === "") {
             const borders = this.state.borders;
             borders[i] = '4px ridge green';
-            this.setState({image: path, borders: borders});
-            this.props.setImages({image: path, image2: this.state.image2});
+            this.setState({image: path, goalImageId: i, borders: borders});
+            this.props.setImages({image: path, image2: this.state.image2, goalImageId: i});
         // Unset first image
         } else if (this.state.image === path) {
             const borders = this.state.borders;
             borders[i] = '';
-            this.setState({image: "", borders: borders});
-            this.props.setImages({image: '', image2: this.state.image2});
+            this.setState({image: "", goalImageId: -1, borders: borders});
+            this.props.setImages({image: '', image2: this.state.image2, goalImageId: -1});
             // Set second image (the wrong painting)
         } else if (this.state.image2 === "") {
             const borders = this.state.borders;
             borders[i] = '4px dotted red';
             this.setState({image2: path, borders: borders});
-            this.props.setImages({image: this.state.image, image2: path});
+            this.props.setImages({image: this.state.image, image2: path, goalImageId: this.state.goalImageId});
         // Unset the second image
         } else if (this.state.image2 === path) {
             const borders = this.state.borders;
             borders[i] = '';
             this.setState({image2: "", borders: borders});
-            this.props.setImages({image: this.state.image, image2: ''});
+            this.props.setImages({image: this.state.image, image2: '', goalImageId: this.state.goalImageId});
         }
     }
 

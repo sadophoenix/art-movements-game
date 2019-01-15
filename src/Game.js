@@ -9,7 +9,7 @@ class Game extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { page: this.pages.menu, images: {image: "/resources/paintings/0.jpg", image2: "/resources/paintings/1.jpg"} };
+        this.state = { page: this.pages.menu, images: {image: "/resources/paintings/0.jpg", image2: "/resources/paintings/1.jpg", goalImageId: 0} };
     }
 
     mainMenu() {
@@ -32,7 +32,7 @@ class Game extends React.Component {
 
     puzzleGame() {
         return <div>
-            <Puzzle image={this.state.images.image} image2={this.state.images.image2} />
+            <Puzzle goalImageId={this.state.images.goalImageId} image={this.state.images.image} image2={this.state.images.image2} />
             {this.backToMenuButton()}
         </div>;
     }

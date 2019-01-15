@@ -7,6 +7,20 @@ import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import "./Puzzle.css"
 
+
+const winningMessages = [
+    'Ο μεταϊμπρεσιονισμός αποτελεί καλλιτεχνικό ρεύμα που αναπτύχθηκε περί τα τέλη του 19ου αιώνα, αμέσως μετά το κίνημα του ιμπρεσιονισμού, του οποίου αποτέλεσε κατά κάποιο τρόπο προέκταση. (1886-1905)\n\
+     Vincent van Gogh : Ένας από τους πρεσβευτές του συγκεκριμένου κινήματος',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n',
+    'Sygxaritiria\n'
+];
+
 /**
  * Shuffles the passed array and returns a new one
  *
@@ -189,7 +203,7 @@ class Puzzle extends React.Component {
         const { level, size } = this.props;
         const finished = this.checkIfPuzzleComplete();
         if (finished) {
-            this.props.onDone();
+            this.props.onDone(winningMessages[this.props.goalImageId]);
         }
         const squares = this.renderSquares(finished);
         const statistics = this.state.statistics;
@@ -232,6 +246,8 @@ class Puzzle extends React.Component {
 
 Puzzle.propTypes = {
     image: PropTypes.string.isRequired,
+    image2: PropTypes.string.isRequired,
+    goalImageId: PropTypes.number.isRequired,
     size: PropTypes.number,
     level: PropTypes.number,
     onDone: PropTypes.func,
@@ -240,10 +256,7 @@ Puzzle.propTypes = {
 Puzzle.defaultProps = {
     size: 300,
     level: 3,
-    onDone: () => { alert("Congratulations!" +
-        "Ο μεταϊμπρεσιονισμός αποτελεί καλλιτεχνικό ρεύμα που αναπτύχθηκε περί τα τέλη του 19ου αιώνα, αμέσως μετά το κίνημα του ιμπρεσιονισμού, του οποίου αποτέλεσε κατά κάποιο τρόπο προέκταση. (1886-1905)" +
-        "Vincent van Gogh : Ένας από τους πρεσβευτές του συγκεκριμένου κινήματος"
-        ); },
+    onDone: (winningMessage) => { alert("Congratulations! " + winningMessage); },
 };
 
 export default DragDropContext(HTML5Backend)(Puzzle);
