@@ -240,7 +240,10 @@ Puzzle.propTypes = {
 Puzzle.defaultProps = {
     size: 300,
     level: 3,
-    onDone: () => { alert("Congratulations!"); },
+    onDone: () => { alert("Congratulations!" +
+        "Ο μεταϊμπρεσιονισμός αποτελεί καλλιτεχνικό ρεύμα που αναπτύχθηκε περί τα τέλη του 19ου αιώνα, αμέσως μετά το κίνημα του ιμπρεσιονισμού, του οποίου αποτέλεσε κατά κάποιο τρόπο προέκταση. (1886-1905)" +
+        "Vincent van Gogh : Ένας από τους πρεσβευτές του συγκεκριμένου κινήματος"
+        ); },
 };
 
 export default DragDropContext(HTML5Backend)(Puzzle);
