@@ -33,12 +33,20 @@ class PaintingsChooser extends React.Component {
         return <div className="row">
                 <div className="column">
                     <img src={imagePath(0)} onClick={() => { this.addImage(imagePath(0)) } } />
-                </div>
-                <div className="column">
                     <img src={imagePath(1)} onClick={() => { this.addImage(imagePath(1)) } } />
+                    <img src={imagePath(2)} onClick={() => { this.addImage(imagePath(2)) } } />
+
                 </div>
                 <div className="column">
-                    <img src={imagePath(2)} onClick={() => { this.addImage(imagePath(2)) } } />
+                    <img src={imagePath(3)} onClick={() => { this.addImage(imagePath(3)) } } />
+                    <img src={imagePath(4)} onClick={() => { this.addImage(imagePath(4)) } } />
+                    <img src={imagePath(5)} onClick={() => { this.addImage(imagePath(5)) } } />
+
+                </div>
+                <div className="column">
+                    <img src={imagePath(6)} onClick={() => { this.addImage(imagePath(6)) } } />
+                    <img src={imagePath(7)} onClick={() => { this.addImage(imagePath(7)) } } />
+                    <img src={imagePath(8)} onClick={() => { this.addImage(imagePath(8)) } } />
                 </div>
             </div>;
     }
