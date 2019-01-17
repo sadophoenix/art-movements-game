@@ -1,16 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import Puzzle from './Puzzle';
+import Game from './Game';
 import * as serviceWorker from './serviceWorker';
 
-// ReactDOM.render(<App />, document.getElementById('root'));
-
 ReactDOM.render(
-    <Puzzle
-        image='https://upload.wikimedia.org/wikipedia/en/6/68/John_Coltrane_-_Blue_Train.jpg'
-    />,
+    <Game/>,
     document.getElementById('root')
 );
 

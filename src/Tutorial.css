@@ -1,0 +1,28 @@
+/* This is take from https://www.w3schools.com/howto/howto_css_next_prev.asp */
+
+.buttonPrevNext {
+    text-decoration: chocolate;
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 5px;
+    padding: 8px 16px;
+}
+
+.buttonPrevNext:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.round {
+    border-radius: 40%;
+}
