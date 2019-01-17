@@ -6,7 +6,8 @@ import Cell from './Cell';
 import HTML5Backend from 'react-dnd-html5-backend';
 import { DragDropContext } from 'react-dnd';
 import "./Puzzle.css"
-
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
 
 const winningMessages = [
     'Deposition (1602-1604 ή 1607). \n' +
@@ -69,11 +70,54 @@ function shuffle(a) {
 }
 
 function Statistics(props) {
+    const perc = props.stats.health;
+    let status = 'full';
+    let symbol = '🏄‍';
+    if (perc < 95 && perc >= 75) {
+        status = 'normal';
+        symbol = '😀';
+    } else if (perc >= 30 && perc <= 75) {
+        status = 'warning';
+        symbol = '😟';
+    } else if (perc < 30) {
+        status = 'losing';
+        symbol = '😱';
+    }
     return <div className={"statistics-div"}>
-        <p>Total moves: {props.totalMoves}</p>
-        <p>Greens: {props.greens}</p>
-        <p>Reds: {props.reds}</p>
-        <p>Yellows: {props.yellows}</p>
+        <p>Total moves: {props.stats.totalMoves}</p>
+        <p style={{color: "green"}}>Correct placements: {props.stats.greens}</p>
+        <p style={{color: "#FFC300"}}>Wrong placements: {props.stats.yellows}</p>
+        <p style={{color: "red"}}>Wrong painting!: {props.stats.reds}</p>
+
+        Health: {symbol}
+        <Progress
+            percent={perc}
+            status={status}
+            theme={
+                {
+                    losing: {
+                        symbol: perc+ '%',
+                        trailColor: 'pink',
+                        color: 'red'
+                    },
+                    warning: {
+                        symbol: perc + '%',
+                        trailColor: 'yellow',
+                        color: 'orange'
+                    },
+                    normal: {
+                        symbol: perc + '%',
+                        trailColor: 'lightblue',
+                        color: 'blue'
+                    },
+                    full: {
+                        symbol: perc + '%',
+                        trailColor: 'lime',
+                        color: 'green'
+                    }
+                }
+            }
+        />
     </div>
 }
 
@@ -83,7 +127,7 @@ class Puzzle extends React.Component {
 
         const { level } = props;
         const cells = 3 * level * level;
-        const statistics = { totalMoves: 0, reds: 0, yellows: 0, greens: 0, points: 100 };
+        const statistics = { totalMoves: 0, reds: 0, yellows: 0, greens: 0, health: 100 };
         this.state = { positions: Array.from(Array(cells).keys()), statistics: statistics };
     }
 
@@ -103,13 +147,18 @@ class Puzzle extends React.Component {
         switch (swappedType) {
             case 'G':
                 statistics.greens = statistics.greens + 1;
+                statistics.health = Math.min(100, statistics.health + 15);
                 break;
             case 'R':
                 statistics.reds = statistics.reds + 1;
+                statistics.health = Math.max(0, statistics.health - 25);
                 break;
             case 'Y':
                 statistics.yellows = statistics.yellows + 1;
+                statistics.health = Math.max(0, statistics.health - 10);
                 break;
+            default:
+                statistics.health = Math.max(0, statistics.health - 5);
         }
     }
 
@@ -231,12 +280,14 @@ class Puzzle extends React.Component {
 
     render() {
         const { level, size } = this.props;
+        const statistics = this.state.statistics;
         const finished = this.checkIfPuzzleComplete();
         if (finished) {
             this.props.onDone(winningMessages[this.props.goalImageId]);
+        } else if (statistics.health === 0) {
+            alert("Failed :(");
         }
         const squares = this.renderSquares(finished);
-        const statistics = this.state.statistics;
         return (
             <div
                 style={{
@@ -267,7 +318,7 @@ class Puzzle extends React.Component {
                     {squares.slice(2 * level * level)}
                 </div>
                 <div>
-                    {Statistics(statistics)}
+                    <Statistics stats={statistics}/>
                 </div>
             </div>
         );

@@ -1,4 +1,7 @@
 .statistics-div {
+    margin-left: 10px;
+    width: 970px;
+    height: 200px;
     border-width: 5px;
     border-style: double;
 }
