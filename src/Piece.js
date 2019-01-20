@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { DragSource } from 'react-dnd';
+import Sound from 'react-sound';
 
 const Piece = (props) => {
   const { image, size, side, border, x, y, connectDragSource, isOver } = props;
@@ -18,8 +19,9 @@ const Piece = (props) => {
         backgroundPosition: `-${x}px -${y}px`,
         opacity: `${isOver ? '0.2' : '1'}`,
         cursor: 'move',
-      }}
-    />
+      }} >
+      <Sound url={isOver ? '/resources/audio/pick.wav' : ""} playStatus={Sound.status.PLAYING} />
+    </div>
   );
 };
 

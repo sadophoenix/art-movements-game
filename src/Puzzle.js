@@ -8,6 +8,7 @@ import { DragDropContext } from 'react-dnd';
 import "./Puzzle.css"
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
+import Sound from 'react-sound';
 
 const winningMessages = [
     'Deposition (1602-1604 ή 1607). \n' +
@@ -121,13 +122,28 @@ function Statistics(props) {
     </div>
 }
 
+function SoundEffect(props) {
+    switch (props.swappedType) {
+        case 'G':
+            return <Sound url={'/resources/audio/green.wav'} playStatus={Sound.status.PLAYING} />;
+        case 'R':
+            return <Sound url={'/resources/audio/red.wav'} playStatus={Sound.status.PLAYING} />;
+        case 'Y':
+            return <Sound url={'/resources/audio/yellow.wav'} playStatus={Sound.status.PLAYING} />;
+        case 'B':
+            return <Sound url={'/resources/audio/pick.wav'} playStatus={Sound.status.PLAYING} />;
+        default:
+            return <Sound />;
+    }
+}
+
 class Puzzle extends React.Component {
     constructor(props) {
         super(props);
 
         const { level } = props;
         const cells = 3 * level * level;
-        const statistics = { totalMoves: 0, reds: 0, yellows: 0, greens: 0, health: 100 };
+        const statistics = { totalMoves: 0, reds: 0, yellows: 0, greens: 0, health: 100, typeOfSwap: 'none' };
         this.state = { positions: Array.from(Array(cells).keys()), statistics: statistics };
     }
 
@@ -144,6 +160,7 @@ class Puzzle extends React.Component {
 
     updateStatistics(statistics, swappedType) {
         statistics.totalMoves = statistics.totalMoves + 1;
+        statistics.typeOfSwap = swappedType;
         switch (swappedType) {
             case 'G':
                 statistics.greens = statistics.greens + 1;
@@ -320,6 +337,7 @@ class Puzzle extends React.Component {
                 <div>
                     <Statistics stats={statistics}/>
                 </div>
+                <SoundEffect swappedType={statistics.typeOfSwap}/>
             </div>
         );
     }
