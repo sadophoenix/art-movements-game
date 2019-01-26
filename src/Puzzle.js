@@ -97,11 +97,12 @@ function Statistics(props) {
         symbol = '😱';
     }
     return <div className={"statistics-div"}>
-        <p>Total moves: {props.stats.totalMoves}</p>
-        <p style={{color: "green"}}>Correct placements: {props.stats.greens}</p>
-        <p style={{color: "#FFC300"}}>Wrong placements: {props.stats.yellows}</p>
-        <p style={{color: "red"}}>Wrong painting!: {props.stats.reds}</p>
-
+        <div className={"grid-container"}>
+            <div className={"grid-item"}> Total moves: {props.stats.totalMoves}</div>
+            <div className={"grid-item"} style={{color: "green"}}> Correct placements: {props.stats.greens}</div>
+            <div className={"grid-item"} style={{color: "#ef8e06"}}> Wrong placements: {props.stats.yellows}</div>
+            <div className={"grid-item"} style={{color: "red"}}> Wrong painting!: {props.stats.reds}</div>
+        </div>
         Health: {symbol}
         <Progress
             percent={perc}
@@ -318,11 +319,8 @@ class Puzzle extends React.Component {
         }
         const squares = this.renderSquares(finished);
         return (
-            <div style={{
-                maxWidth: `${3*size+170}px`,
-                border: "solid",
-                borderRadius: '25px',
-                background: '#cdffe4'
+            <div className={"puzzleMain"} style={{
+                maxWidth: `${3*size+170}px`
             }}>
                 <div style={{
                     padding: "1%",
@@ -335,7 +333,7 @@ class Puzzle extends React.Component {
                         flexWrap: 'wrap',
                         padding: "1%",
                         width: `${3*size+120}px`,
-                        height: `${size+350}px`
+                        height: `${size+300}px`
                     }}>
                     <div
                         style={{

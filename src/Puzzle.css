@@ -1,7 +1,25 @@
 .statistics-div {
     margin-left: 10px;
     width: 970px;
-    height: 200px;
+    height: 100px;
     border-width: 5px;
     border-style: double;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.grid-item {
+    font-size: 25px;
+    text-align: center;
+}
+
+.puzzleMain {
+    border: solid;
+    border-radius: 25px;
+    background: url("/resources/backgrounds/victorian.jpg");
+    background-repeat: repeat;
+    background-repeat: repeat;
 }
