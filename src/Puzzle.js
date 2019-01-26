@@ -53,6 +53,18 @@ const winningMessages = [
     '\n\n'
 ];
 
+const odigies = [
+    'ena',
+    'duo',
+    'tria',
+    'tessera',
+    'pente',
+    '6',
+    'efta',
+    '8',
+    '9'
+];
+
 /**
  * Shuffles the passed array and returns a new one
  *
@@ -108,13 +120,13 @@ function Statistics(props) {
                     },
                     normal: {
                         symbol: perc + '%',
-                        trailColor: 'lightblue',
-                        color: 'blue'
+                        trailColor: 'lime',
+                        color: 'green'
                     },
                     full: {
                         symbol: perc + '%',
-                        trailColor: 'lime',
-                        color: 'green'
+                        trailColor: 'lightblue',
+                        color: 'blue'
                     }
                 }
             }
@@ -306,38 +318,50 @@ class Puzzle extends React.Component {
         }
         const squares = this.renderSquares(finished);
         return (
-            <div
-                style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
+            <div style={{
+                maxWidth: `${3*size+170}px`,
+                border: "solid",
+                borderRadius: '25px',
+                background: '#cdffe4'
+            }}>
+                <div style={{
                     padding: "1%",
-                    width: `${3*size+120}px`,
-                    height: `${size+350}px`
                 }}>
+                    <p> Ο στόχος είναι να μαζευτεί το puzzle {odigies[this.props.goalImageId]} </p>
+                </div>
                 <div
                     style={{
                         display: 'flex',
                         flexWrap: 'wrap',
                         padding: "1%",
-                        width: `${2*size+40}px`,
+                        width: `${3*size+120}px`,
+                        height: `${size+350}px`
+                    }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            padding: "1%",
+                            width: `${2*size+40}px`,
+                            height: `${size}px`
+                        }}>
+                        {squares.slice(0, 2 * level * level)}
+                    </div>
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        marginLeft: '10px',
+                        padding: "1%",
+                        width: `${size+15}px`,
                         height: `${size}px`
                     }}>
-                    {squares.slice(0, 2 * level * level)}
+                        {squares.slice(2 * level * level)}
+                    </div>
+                    <div>
+                        <Statistics stats={statistics}/>
+                    </div>
+                    <SoundEffect swappedType={statistics.typeOfSwap}/>
                 </div>
-                <div style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    marginLeft: '10px',
-                    padding: "1%",
-                    width: `${size+15}px`,
-                    height: `${size}px`
-                }}>
-                    {squares.slice(2 * level * level)}
-                </div>
-                <div>
-                    <Statistics stats={statistics}/>
-                </div>
-                <SoundEffect swappedType={statistics.typeOfSwap}/>
             </div>
         );
     }
