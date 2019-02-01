@@ -16,7 +16,7 @@ const winningMessages = [
     'που είναι ο ναός παναγίας της κοιλάδος που βρίσκεται στην\n' +
     'Ρώμη.H συγκεκριμένη εποχή για την ιστορία της τέχνης αποτελεί τις αρχές του Μπαρόκ (1600 - 1750).\n' +
     'Καλλιτέχνης: Michelangelo Merisi da Caravaggio (1571-1610).\n',
-    'The Houses of Parliament, Sunset, (1903). Το έργο είναι απο μια σειρά ζωγραφιών από τον Monet για την απεικόνιση του παλατιού του Westminster.\n' +
+    'The Houses of Parliament, Sunset (1903). Το έργο είναι απο μια σειρά ζωγραφιών από τον Monet για την απεικόνιση του παλατιού του Westminster.\n' +
     'Ο ιμπρεσιονισμός είναι ένα καλλιτεχνικό ρεύμα που αναπτύχθηκε στο δεύτερο μισό του 19ου αιώνα. \n' +
     'Πέρα από την ζωγραφική, επηρέασε τόσο τη λογοτεχνία όσο και τη μουσική. \n' +
     'Ο όρος ιμπρεσιονισμός πιθανόν προήλθε από το έργο του claude monet Impression, Sunrise.\n' +
@@ -54,15 +54,15 @@ const winningMessages = [
 ];
 
 const odigies = [
-    'ena',
-    'duo',
-    'tria',
-    'tessera',
-    'pente',
-    '6',
-    'efta',
-    '8',
-    '9'
+    '"Deposition" (1602-1604 ή 1607)"',
+    '"The Houses of Parliament, Sunset" (1903)',
+    '"The Raft of the Medusa (1818-1819)" ',
+    '"Swans Reflecting Elephants (1937)"',
+    '"Ηλιοτρόπια (1888)"',
+    '"Οι σταχομαζώχτρες" (1857)',
+    '"Composition VIII" (1923)',
+    '"Nighthawks" (1942)',
+    '"Η κυρία με την Ερμίνα." (1488,1490)',
 ];
 
 /**
@@ -153,7 +153,6 @@ function SoundEffect(props) {
 class Puzzle extends React.Component {
     constructor(props) {
         super(props);
-
         const { level } = props;
         const cells = 3 * level * level;
         const statistics = { totalMoves: 0, reds: 0, yellows: 0, greens: 0, health: 100, typeOfSwap: 'none' };
@@ -249,6 +248,7 @@ class Puzzle extends React.Component {
             // If we have finished, we want to show only the result image
             if (finished && index < 2 * level * level)
             {
+               return  <Sound url={'/resources/audio/win.wav'} playStatus={Sound.status.PLAYING} />;
                 return;
             }
             let border = this.definePieceBorders(index, i, finished);
@@ -315,7 +315,8 @@ class Puzzle extends React.Component {
         if (finished) {
             this.props.onDone(winningMessages[this.props.goalImageId]);
         } else if (statistics.health === 0) {
-            alert("Failed :(");
+            alert("Ξαναπροσπάθησε :(");
+            return  <Sound url={'/resources/audio/loss.wav'} playStatus={Sound.status.PLAYING} />;
         }
         const squares = this.renderSquares(finished);
         return (
@@ -325,7 +326,7 @@ class Puzzle extends React.Component {
                 <div style={{
                     padding: "1%",
                 }}>
-                    <p> Ο στόχος είναι να μαζευτεί το puzzle {odigies[this.props.goalImageId]} </p>
+                    <p> Ο στόχος είναι να μαζευτεί ο πίνακας {odigies[this.props.goalImageId]} </p>
                 </div>
                 <div
                     style={{
@@ -378,6 +379,7 @@ Puzzle.defaultProps = {
     size: 300,
     level: 3,
     onDone: (winningMessage) => { alert("συγχαρητήρια! " + winningMessage); },
+
 };
 
 export default DragDropContext(HTML5Backend)(Puzzle);
