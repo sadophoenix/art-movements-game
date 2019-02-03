@@ -15,9 +15,9 @@ class Game extends React.Component {
     mainMenu() {
         return  <div className={"menu-div"}>
             <ul>
-                <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}} type="button"> start </button> </li>
-                <li> <button onClick={() => {this.setState({ page: this.pages.tutorial })}}type="button"> tutorial </button> </li>
-                <li> <button onClick={() => {this.setState({ page: this.pages.choosePaintings })}}type="button"> choose paintings </button> </li>
+                <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}} type="button"> Εκκίνηση </button> </li>
+                <li> <button onClick={() => {this.setState({ page: this.pages.tutorial })}}type="button"> Επεξήγηση </button> </li>
+                <li> <button onClick={() => {this.setState({ page: this.pages.choosePaintings })}}type="button"> Επέλεξε εικόνες </button> </li>
             </ul>
         </div>;
     }
@@ -27,7 +27,7 @@ class Game extends React.Component {
     }
 
     backToMenuButton() {
-        return <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Back to menu </button>
+        return <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Πίσω στη Μενού </button>
     }
 
     puzzleGame() {
