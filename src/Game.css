@@ -1,8 +1,10 @@
 .menu-div {
     display: block;
     position: absolute;
-    left: 45%;
-    top: 35%;
+    left: 15%;
+    top: 25%;
+
+
 }
 
 ul {
@@ -15,6 +17,9 @@ li {
 }
 
 button{
-    padding: 8px 16px;
-    border-radius: 20%;
+    padding: 20px 40px;
+    border-radius: 70%;
+}
+body {
+    background-color: linen;
 }

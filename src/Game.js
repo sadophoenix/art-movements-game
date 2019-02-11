@@ -15,9 +15,11 @@ class Game extends React.Component {
     mainMenu() {
         return  <div className={"menu-div"}>
             <ul>
-                <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}} type="button"> Εκκίνηση </button> </li>
-                <li> <button onClick={() => {this.setState({ page: this.pages.tutorial })}}type="button"> Επεξήγηση </button> </li>
-                <li> <button onClick={() => {this.setState({ page: this.pages.choosePaintings })}}type="button"> Επέλεξε εικόνες </button> </li>
+                <li> <button onClick={() => {this.setState({ page: this.pages.tutorial })}} type="button">  Στις οδηγίες υπάρχει η ακολουθία βημάτων που δείχνουν τον τρόπο του παιχνιδιού! </button> </li>
+                <li> <button onClick={() => {this.setState({ page: this.pages.choosePaintings })}}type="button">Στην επιλογή των εικόνων ο χρήστης μπορεί να επιλέξει τις εικόνες που θέλει για να ξεκινήσει η διαδικασία του παιχνιδιού!</button> </li>
+                <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}}type="button"> Εκκίνηση </button> </li>
+
+
             </ul>
         </div>;
     }
@@ -27,7 +29,7 @@ class Game extends React.Component {
     }
 
     backToMenuButton() {
-        return <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Πίσω στη Μενού </button>
+        return <button onClick={() => {this.setState({ page: this.pages.menu })}} type="button"> Πίσω στο Μενού </button>
     }
 
     puzzleGame() {

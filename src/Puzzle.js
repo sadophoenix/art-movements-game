@@ -98,12 +98,12 @@ function Statistics(props) {
     }
     return <div className={"statistics-div"}>
         <div className={"grid-container"}>
-            <div className={"grid-item"}> Total moves: {props.stats.totalMoves}</div>
-            <div className={"grid-item"} style={{color: "green"}}> Correct placements: {props.stats.greens}</div>
-            <div className={"grid-item"} style={{color: "#ef8e06"}}> Wrong placements: {props.stats.yellows}</div>
-            <div className={"grid-item"} style={{color: "red"}}> Wrong painting!: {props.stats.reds}</div>
+            <div className={"grid-item"}> Συνολικές κινήσεις: {props.stats.totalMoves}</div>
+            <div className={"grid-item"} style={{color: "green"}}> Σωστή τοποθέτηση: {props.stats.greens}</div>
+            <div className={"grid-item"} style={{color: "#ef8e06"}}> Λάθος τοποθέτηση: {props.stats.yellows}</div>
+            <div className={"grid-item"} style={{color: "red"}}> Λάθος εικόνα!: {props.stats.reds}</div>
         </div>
-        Health: {symbol}
+        Ζωή: {symbol}
         <Progress
             percent={perc}
             status={status}
@@ -377,7 +377,7 @@ Puzzle.propTypes = {
 Puzzle.defaultProps = {
     size: 300,
     level: 3,
-    onDone: (winningMessage) => { alert("συγχαρητήρια! " + winningMessage); },
+    onDone: (winningMessage) => { alert("Συγχαρητήρια! " + winningMessage); },
 
 };
 
