@@ -13,15 +13,15 @@ class Game extends React.Component {
     }
 
     mainMenu() {
-        return  <div className={"menu-div"}>
-            <ul>
-                <li> <button onClick={() => {this.setState({ page: this.pages.tutorial })}} type="button">  Στις οδηγίες υπάρχει η ακολουθία βημάτων που δείχνουν τον τρόπο του παιχνιδιού! </button> </li>
-                <li> <button onClick={() => {this.setState({ page: this.pages.choosePaintings })}}type="button">Στην επιλογή των εικόνων ο χρήστης μπορεί να επιλέξει τις εικόνες που θέλει για να ξεκινήσει η διαδικασία του παιχνιδιού!</button> </li>
-                <li> <button onClick={() => {this.setState({ page: this.pages.puzzle })}}type="button"> Εκκίνηση </button> </li>
-
-
-            </ul>
-        </div>;
+        return <div className={"menu-div"}>
+                <div className={"grid-item"}> <p style={{ fontSize: "40px", color: "magenta"}}>Καλωσήρθατε στο παιχνίδι εκμάθησης κινημάτων τέχνης</p></div>
+                <div className={"grid-item"}> <p>Στις οδηγίες υπάρχει η ακολουθία βημάτων που δείχνουν τον τρόπο του παιχνιδιού</p></div>
+                <div className={"grid-item"}> <button onClick={() => {this.setState({ page: this.pages.tutorial })}} type="button"> Οδηγίες </button></div>
+                <div className={"grid-item"}> <p>Στην επιλογή των εικόνων ο χρήστης μπορεί να επιλέξει τις εικόνες που θα σχηματίσουν το Παζλ</p></div>
+                <div className={"grid-item"}> <button onClick={() => {this.setState({ page: this.pages.choosePaintings })}}type="button">Επιλογή εικόνων</button></div>
+                <div className={"grid-item"}> <p>Παίξε το παιχνίδι!</p></div>
+                <div className={"grid-item"}> <button onClick={() => {this.setState({ page: this.pages.puzzle })}}type="button"> Εκκίνηση </button></div>
+            </div>;
     }
 
     setImages(images) {
