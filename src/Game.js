@@ -14,7 +14,7 @@ class Game extends React.Component {
 
     mainMenu() {
         return <div className={"menu-div"}>
-                <div className={"grid-item"}> <p style={{ fontSize: "40px", color: "magenta"}}>Καλωσήρθατε στο παιχνίδι εκμάθησης κινημάτων τέχνης</p></div>
+                <div className={"grid-item"}> <p style={{ fontSize: "40px", color: "lightblue"}}>Καλωσήρθατε στο παιχνίδι εκμάθησης κινημάτων τέχνης</p></div>
                 <div className={"grid-item"}> <p>Στις οδηγίες υπάρχει η ακολουθία βημάτων που δείχνουν τον τρόπο του παιχνιδιού</p></div>
                 <div className={"grid-item"}> <button onClick={() => {this.setState({ page: this.pages.tutorial })}} type="button"> Οδηγίες </button></div>
                 <div className={"grid-item"}> <p>Στην επιλογή των εικόνων ο χρήστης μπορεί να επιλέξει τις εικόνες που θα σχηματίσουν το Παζλ</p></div>
