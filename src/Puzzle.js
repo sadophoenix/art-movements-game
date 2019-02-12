@@ -248,7 +248,7 @@ class Puzzle extends React.Component {
             // If we have finished, we want to show only the result image
             if (finished && index < 2 * level * level)
             {
-                return  <Sound url={'/resources/audio/win.wav'} playStatus={Sound.status.PLAYING} />;
+                return  <Sound url={'/resources/audio/win.mp3'} playStatus={Sound.status.PLAYING} />;
             }
             let border = this.definePieceBorders(index, i, finished);
 
